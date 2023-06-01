@@ -11,10 +11,9 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: 1.0.5
-  hive: ^2.2.3
-  hive_flutter: ^1.1.0
-  flutter_secure_storage: ^8.0.0
   flutter_native_splash: ^2.3.0
+  bynd:
+    path: Package/bynd
 
 
 dev_dependencies:
@@ -26,20 +25,20 @@ dev_dependencies:
   
 
 
-flutter_icons:
-  ios: true
-  android: true
-  image_path: "assets/marketing/app-icon-1024.png"
+# flutter_icons:
+#   ios: true
+#   android: true
+#   image_path: "assets/marketing/app-icon-1024.png"
 
 flutter:
   uses-material-design: true
 
   generate: true
 
-  assets:
-    - assets/images
+  # assets:
+  #   - assets/images
   
-  fonts:
-    - family: Cinzel
-      fonts:
-        - asset: assets/fonts/CinzelDecorative-Regular.ttf
+  # fonts:
+  #   - family: Cinzel
+  #     fonts:
+  #       - asset: assets/fonts/CinzelDecorative-Regular.ttf

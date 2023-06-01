@@ -1,4 +1,4 @@
-part of '../storage.dart';
+part of '../impl.dart';
 
 @immutable
 class SecureService {

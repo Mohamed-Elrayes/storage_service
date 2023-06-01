@@ -1,10 +1,9 @@
+import 'package:bynd/bynd.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/min_fram/service/storage/storage.dart';
-import 'package:flutter_application_1/src/core/adapters/local_user_model.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
 
-import 'min_fram/bynd.dart';
-import 'min_fram/widgets/navigation.dart';
+import 'package:flutter_application_1/src/core/local_container.dart';
+import 'package:flutter_application_1/src/core/storage/adapters/local_user_model.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 final localUser = LocalUserModel()
   ..id = 0
@@ -13,12 +12,14 @@ final localUser = LocalUserModel()
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  /// initialize 
+  List<BoxService> boxes = $StorageContainer.initializerBoxes;
+  await $Bynd.localStorageManager.initialize(boxes);
 
-  await StorageLocalManager.instance.initialize();
-
-  $Bynd.$StorageContainer.secureKey.put("secure data");
-  $Bynd.$StorageContainer.boxA.put("data");
-  $Bynd.$StorageContainer.boxB.put(localUser);
+  $StorageContainer.secureKey.put("secure data");
+  $StorageContainer.boxA.put("data");
+  $StorageContainer.boxB.put(false);
+  $StorageContainer.adapterUser.put(localUser);
 
   runApp(const MainApp());
   FlutterNativeSplash.remove();
@@ -29,14 +30,15 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final m = $Bynd.$StorageContainer;
+    final m = $StorageContainer;
     return MaterialApp(
-      navigatorKey: NavKey.navKey,
+      // navigatorKey: NavKey.navKey,
       home: Scaffold(
           body: Column(
         children: [
           Text('${m.boxA.get()}'),
-          Text(m.boxB.get()!.name.toString()),
+          Text('${m.adapterUser.get()?.name}'),
+          Text(m.boxB.get().toString()),
           Text('${m.secureKey.get()}'),
         ],
       )),

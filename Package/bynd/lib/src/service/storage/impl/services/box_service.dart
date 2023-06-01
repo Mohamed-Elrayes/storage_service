@@ -1,4 +1,4 @@
-part of '../storage.dart';
+part of '../impl.dart';
 
 class BoxService<T> implements HiveBoxInitializer<T> {
   BoxService({required String boxName, TypeAdapter<T>? initAdapter})

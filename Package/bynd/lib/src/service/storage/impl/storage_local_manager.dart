@@ -1,5 +1,4 @@
-
-part of '../storage.dart';
+part of 'impl.dart';
 
 abstract class HiveBoxInitializer<T> {
   Future<void> _openBox();
@@ -15,9 +14,10 @@ class StorageLocalManager {
 
   StorageLocalManager._();
 
-  Future<void> initialize() async {
+  Future<void> initialize(List<HiveBoxInitializer> initializeBox) async {
     await Hive.initFlutter();
-    await openAllBoxes($Bynd.$StorageContainer.initializers);
+
+    await openAllBoxes(initializeBox);
   }
 
   Future<void> openAllBoxes(List<HiveBoxInitializer> initializers) async {
