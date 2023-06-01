@@ -1,6 +1,9 @@
-import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
 
-@immutable
-abstract class ByndInterface {}
+abstract class ByndInterface {
+  GlobalKey<NavigatorState> navigationKey = GlobalKey<NavigatorState>();
+
+  BuildContext get context => navigationKey.currentContext!;
+}
 
 class ByndImpl extends ByndInterface {}

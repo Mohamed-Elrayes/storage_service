@@ -1,18 +1,18 @@
 import 'package:bynd/bynd.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter_application_1/src/core/local_container.dart';
 import 'package:flutter_application_1/src/core/storage/adapters/local_user_model.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
+
 
 final localUser = LocalUserModel()
   ..id = 0
   ..name = "mo";
 
 void main() async {
-  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-  /// initialize 
+ WidgetsFlutterBinding.ensureInitialized();
+  // FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+
+  /// initialize
   List<BoxService> boxes = $StorageContainer.initializerBoxes;
   await $Bynd.localStorageManager.initialize(boxes);
 
@@ -22,7 +22,7 @@ void main() async {
   $StorageContainer.adapterUser.put(localUser);
 
   runApp(const MainApp());
-  FlutterNativeSplash.remove();
+  // FlutterNativeSplash.remove();
 }
 
 class MainApp extends StatelessWidget {
@@ -32,7 +32,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final m = $StorageContainer;
     return MaterialApp(
-      // navigatorKey: NavKey.navKey,
+      navigatorKey: $Bynd.navigationKey,
       home: Scaffold(
           body: Column(
         children: [
@@ -40,6 +40,14 @@ class MainApp extends StatelessWidget {
           Text('${m.adapterUser.get()?.name}'),
           Text(m.boxB.get().toString()),
           Text('${m.secureKey.get()}'),
+          ElevatedButton(
+              onPressed: () => $Bynd.to(Scaffold(
+                    appBar: AppBar(),
+                    body: const Center(
+                      child: Text("new screen"),
+                    ),
+                  )),
+              child: const Text("data"))
         ],
       )),
     );
